@@ -1,0 +1,10 @@
+admin1,pass123
+admin2,admin@12
+principal,princ2025
+staff1,staff@123
+staff2,abc123
+officeA,office001
+officeB,office002
+manager,mgr999
+clerk,clerk007
+superadmin,masterkey
