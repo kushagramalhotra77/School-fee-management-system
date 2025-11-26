@@ -6,8 +6,6 @@
 #define FILENAME "fees.txt"
 #define ADMINDATA "datastored.txt"
 
-// GLOBAL FUNCTION DECLARATIONS
-
 void clearInputBuffer();
 void addStudent();
 void displayAllStudents();
@@ -49,7 +47,6 @@ int admindata(char username[], char password[]) {
     char line[100];
 
     while (fgets(line, sizeof(line), fp) != NULL) {
-        // Parse the line with comma separator
         if (sscanf(line, "%[^,],%s", user, pass) == 2) {
             if (strcmp(username, user) == 0 && strcmp(password, pass) == 0) {
                 fclose(fp);
@@ -151,8 +148,6 @@ void addStudent() {
     printf("Enter Serial Number: ");
     scanf("%d", &newStudent.serial);
     clearInputBuffer();
-
-    // check duplicate
     for (i = 0; i < count; i++) {
         if (students[i].serial == newStudent.serial) {
             printf("Serial number already exists!\n");
@@ -205,7 +200,7 @@ void displayAllStudents() {
 
     int i;
     for (i = 0; i < count; i++) {
-        printf("%-8d %-25s %-7d %-11.2f %-9.2f %.2f\n",
+        printf("%8d %25s %7d %11.2f %9.2f %.2f\n",
                students[i].serial,
                students[i].name,
                students[i].grade,
@@ -337,7 +332,6 @@ void adminLogin() {
     scanf("%49s", password);
     clearInputBuffer();
 
-    // Use the admindata() function to verify credentials
     if (!admindata(username, password)) {
         printf("Wrong username or password!\n");
         return;
@@ -362,20 +356,15 @@ void adminLogin() {
         scanf("%d", &choice);
         clearInputBuffer();
 
-        if (choice == 1) {
-            addStudent();
-        } else if (choice == 2) {
-            displayAllStudents();
-        } else if (choice == 3) {
-            searchStudent();
-        } else if (choice == 4) {
-            updateFee();
-        } else if (choice == 5) {
-            deleteStudent();
-        } else if (choice == 6) {
-            printf("Logged out.\n");
-            return;
-        }
+        switch (choice) { 
+        case 1: addStudent(); break; 
+        case 2: displayAllStudents(); break; 
+        case 3: searchStudent(); break; 
+        case 4: updateFee(); break; 
+        case 5: deleteStudent(); break; 
+        case 6: printf("Logged out.\n"); return; 
+        default: printf("Invalid choice!\n"); 
+        } 
     }
 }
 
@@ -406,10 +395,8 @@ void studentLogin() {
                 if (students[i].balance < 0) {
                     students[i].balance = 0;
                 }
-
                 saveToFile();
             }
-
             studentInfo(i);
             return;
         }
@@ -442,8 +429,11 @@ int main() {
             studentLogin();
         } else if (choice == 3) {
             printf("\nExiting...\n");
-            return 0;
-        }
+        }else
+            printf("Invalid \n");
+                    return 0;`
+
+        
     }
 
     return 0;
